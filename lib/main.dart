@@ -14,25 +14,28 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.green,
       ),
       debugShowCheckedModeBanner: false,
-      home: MyHomePage(),
+      home: const NavigationDrawerDemo(),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key});
+class NavigationDrawerDemo extends StatefulWidget {
+  const NavigationDrawerDemo({Key? key}) : super(key: key);
+
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  State<NavigationDrawerDemo> createState() => _NavigationDrawerDemoState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _NavigationDrawerDemoState extends State<NavigationDrawerDemo> {
+  final GlobalKey<ScaffoldState> _key = GlobalKey(); // Create a key
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _key,
       appBar: AppBar(
         centerTitle: true,
         title: const Text(
-          'Navigation Drawer',
+          'Drawer Actividad 3',
         ),
         backgroundColor: const Color(0xff4abca9),
       ),
@@ -62,7 +65,7 @@ class _MyHomePageState extends State<MyHomePage> {
               leading: Icon(
                 Icons.home,
               ),
-              title: const Text('Page 1'),
+              title: const Text('Pagina 1'),
               onTap: () {
                 Navigator.pop(context);
               },
@@ -71,10 +74,35 @@ class _MyHomePageState extends State<MyHomePage> {
               leading: Icon(
                 Icons.train,
               ),
-              title: const Text('Page 2'),
+              title: const Text('Pagina 2'),
               onTap: () {
                 Navigator.pop(context);
               },
+            ),
+            ListTile(
+              leading: Icon(
+                Icons.access_alarm_rounded,
+              ),
+              title: const Text('Pagina 3'),
+              onTap: () {
+                Navigator.pop(context);
+              },
+            ),
+            AboutListTile(
+              // <-- SEE HERE
+              icon: Icon(
+                Icons.info,
+              ),
+              child: Text('Sobre La App'),
+              applicationIcon: Icon(
+                Icons.local_play,
+              ),
+              applicationName: 'Mi Applicación c',
+              applicationVersion: '1.0.25',
+              applicationLegalese: '© 2019 Company',
+              aboutBoxChildren: [
+                ///Content goes here...
+              ],
             ),
           ],
         ),
@@ -84,6 +112,15 @@ class _MyHomePageState extends State<MyHomePage> {
           children: [
             SizedBox(
               height: 50,
+            ),
+            ElevatedButton(
+              onPressed: () {
+                _key.currentState!.openDrawer(); //<-- SEE HERE
+              },
+              child: const Text(
+                'Boton Elevado 1',
+                style: TextStyle(fontSize: 24),
+              ),
             ),
           ],
         ),
